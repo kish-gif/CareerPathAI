@@ -1,4 +1,6 @@
 import streamlit as st
+import career_database   # your career_database.py
+import questions         # your questions.py
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,20 +13,73 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 warnings.filterwarnings('ignore')
 
+import json
+
+def load_data():
+    with open("career_database.json", "r") as f:
+        careers = json.load(f)
+    with open("quiz_questions.json", "r") as f:
+        questions = json.load(f)
+    return careers, questions
+
+CAREER_DATABASE, QUIZ_QUESTIONS = load_data()
+
+
+
+
 # Set page configuration
 st.set_page_config(
     page_title="AI Career Guidance System",
-    page_icon="🎯",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
+st.markdown(
+    """
+    <style>
+    /* Remove radio button container box */
+    div[data-testid="stRadio"] {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    /* Remove slider container box */
+    div[data-testid="stSlider"] {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+hide_sidebar_css = """
+<style>
+[data-testid="stSidebar"] {
+    display: none;
+}
+[data-testid="stSidebarNav"] {
+    display: none;
+}
+</style>
+"""
+st.markdown(hide_sidebar_css, unsafe_allow_html=True)
 
  # Enhanced Custom CSS for better styling and user experience
 light_css = """
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 body {
-    background: linear-gradient(120deg, #f0f4f9 0%, #e0e7ff 100%) !important;
+font-family: 'Inter', sans-serif;
+    background-color: #f9fafb !important; /* gray-50 */
+    color: #111827; /* gray-900 */
+
 }
 .main-container {
     background: #fff;
@@ -35,6 +90,17 @@ body {
     max-width: 900px;
     animation: fadeIn 1.2s;
 }
+.block-container {
+  overflow: auto;              /* allow scrolling */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+
+.block-container::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari, Opera */
+}
+
+
 @keyframes fadeIn {
     0% { opacity: 0; transform: translateY(30px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -61,7 +127,7 @@ body {
     color: white;
     margin: 1rem 0;
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-    font-size: 1.1rem;
+    font-size: 1.8rem;
 }
 .trait-score {
     background: #f8f9fa;
@@ -71,6 +137,30 @@ body {
     border-left: 5px solid #1f77b4;
     font-size: 1.05rem;
 }
+
+.instruction-box {
+            background: #ffffff;
+            border: 1.2px solid #000000;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 1rem auto;
+            max-width: 1400px;
+            text-align: left;
+                        border: none;'            
+
+        }
+    
+        .instruction-box h2 {
+            color: #111827;
+            margin: 1rem auto 0 auto;
+        }
+        .instruction-box p {
+            font-size: 1.25rem;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+
 .confidence-high { color: #27ae60; font-weight: bold; }
 .confidence-medium { color: #f39c12; font-weight: bold; }
 .confidence-low { color: #e74c3c; font-weight: bold; }
@@ -103,175 +193,12 @@ body {
     margin-bottom: 0.5rem;
     letter-spacing: 0.5px;
 }
+
 </style>
 """
 st.markdown(light_css, unsafe_allow_html=True)
 
 
-# Career database with comprehensive information
-CAREER_DATABASE = {
-    "Software Engineer": {
-        "description": "Design, develop, and maintain software applications and systems using various programming languages and frameworks.",
-        "job_roles": ["Full Stack Developer", "Backend Developer", "Mobile App Developer", "DevOps Engineer"],
-        "salary_range": "$70,000 - $150,000",
-        "tools": ["Python", "JavaScript", "Git", "Docker", "AWS", "React"],
-        "required_traits": {"logical_thinking": 0.8, "tech_affinity": 0.9, "math": 0.7, "creativity": 0.6},
-        "learning_resources": [
-            "IBM SkillsBuild - Software Development",
-            "Coursera - Programming Fundamentals",
-            "FreeCodeCamp - Web Development"
-        ]
-    },
-    "Data Scientist": {
-        "description": "Analyze complex data to extract insights and build predictive models for business decision-making.",
-        "job_roles": ["ML Engineer", "Data Analyst", "Business Intelligence Analyst", "Research Scientist"],
-        "salary_range": "$80,000 - $160,000",
-        "tools": ["Python", "R", "SQL", "Tableau", "TensorFlow", "Jupyter"],
-        "required_traits": {"logical_thinking": 0.9, "math": 0.9, "tech_affinity": 0.8, "analytical": 0.8},
-        "learning_resources": [
-            "IBM Data Science Professional Certificate",
-            "Coursera - Data Science Specialization",
-            "Kaggle Learn - Data Science"
-        ]
-    },
-    "UX/UI Designer": {
-        "description": "Create intuitive and visually appealing user interfaces and experiences for digital products.",
-        "job_roles": ["Product Designer", "Visual Designer", "Interaction Designer", "Design Researcher"],
-        "salary_range": "$60,000 - $120,000",
-        "tools": ["Figma", "Adobe Creative Suite", "Sketch", "InVision", "Principle"],
-        "required_traits": {"creativity": 0.9, "empathy": 0.8, "communication": 0.7, "tech_affinity": 0.6},
-        "learning_resources": [
-            "Google UX Design Certificate",
-            "Coursera - UI/UX Design Specialization",
-            "Adobe Design University"
-        ]
-    },
-    "Marketing Manager": {
-        "description": "Develop and execute marketing strategies to promote products and services to target audiences.",
-        "job_roles": ["Digital Marketing Manager", "Brand Manager", "Content Marketing Manager", "Social Media Manager"],
-        "salary_range": "$55,000 - $110,000",
-        "tools": ["Google Analytics", "HubSpot", "Mailchimp", "Canva", "Hootsuite"],
-        "required_traits": {"creativity": 0.8, "communication": 0.9, "leadership": 0.7, "empathy": 0.6},
-        "learning_resources": [
-            "Google Digital Marketing Certificate",
-            "HubSpot Academy",
-            "Coursera - Digital Marketing Specialization"
-        ]
-    },
-    "Business Analyst": {
-        "description": "Bridge the gap between IT and business by analyzing processes and systems to improve efficiency.",
-        "job_roles": ["Systems Analyst", "Process Improvement Analyst", "Data Analyst", "Project Coordinator"],
-        "salary_range": "$65,000 - $125,000",
-        "tools": ["Excel", "SQL", "Tableau", "JIRA", "Visio", "Power BI"],
-        "required_traits": {"logical_thinking": 0.8, "communication": 0.8, "analytical": 0.8, "leadership": 0.6},
-        "learning_resources": [
-            "IBM Business Analysis Certificate",
-            "Coursera - Business Analytics",
-            "IIBA - Business Analysis Training"
-        ]
-    },
-    "Project Manager": {
-        "description": "Plan, execute, and oversee projects from initiation to completion, ensuring they meet goals and deadlines.",
-        "job_roles": ["Scrum Master", "Program Manager", "Operations Manager", "Team Lead"],
-        "salary_range": "$70,000 - $130,000",
-        "tools": ["Microsoft Project", "JIRA", "Trello", "Slack", "Gantt Charts"],
-        "required_traits": {"leadership": 0.9, "communication": 0.8, "organization": 0.8, "problem_solving": 0.7},
-        "learning_resources": [
-            "PMI Project Management Certificate",
-            "Google Project Management Certificate",
-            "Coursera - Project Management Principles"
-        ]
-    },
-    "Counselor/Therapist": {
-        "description": "Provide mental health support and guidance to individuals dealing with personal challenges.",
-        "job_roles": ["Clinical Therapist", "School Counselor", "Career Counselor", "Family Therapist"],
-        "salary_range": "$45,000 - $85,000",
-        "tools": ["Assessment Tools", "Therapy Software", "Documentation Systems"],
-        "required_traits": {"empathy": 0.9, "communication": 0.9, "patience": 0.8, "listening": 0.8},
-        "learning_resources": [
-            "Psychology Today - Therapy Training",
-            "Coursera - Psychology Courses",
-            "American Counseling Association Resources"
-        ]
-    },
-    "Sales Representative": {
-        "description": "Build relationships with clients and sell products or services to meet revenue targets.",
-        "job_roles": ["Account Manager", "Business Development Rep", "Sales Engineer", "Territory Manager"],
-        "salary_range": "$45,000 - $120,000",
-        "tools": ["CRM Software", "Salesforce", "LinkedIn Sales Navigator", "Email Marketing Tools"],
-        "required_traits": {"communication": 0.9, "persuasion": 0.8, "resilience": 0.7, "empathy": 0.6},
-        "learning_resources": [
-            "Salesforce Trailhead",
-            "HubSpot Sales Training",
-            "LinkedIn Learning - Sales Skills"
-        ]
-    }
-}
-
-# Quiz questions with trait mapping and tooltips
-QUIZ_QUESTIONS = [
-    {
-        "question": "How comfortable are you with solving complex mathematical problems?",
-        "trait": "math",
-        "type": "slider",
-        "tooltip": "Measures your comfort with numbers, formulas, and quantitative reasoning."
-    },
-    {
-        "question": "Rate your ability to think logically and systematically:",
-        "trait": "logical_thinking",
-        "type": "slider",
-        "tooltip": "Assesses your logical reasoning and structured problem-solving."
-    },
-    {
-        "question": "How much do you enjoy coming up with creative solutions?",
-        "trait": "creativity",
-        "type": "slider",
-        "tooltip": "Reflects your ability to generate new ideas and think outside the box."
-    },
-    {
-        "question": "Rate your comfort level with technology and digital tools:",
-        "trait": "tech_affinity",
-        "type": "slider",
-        "tooltip": "Shows your ease with using computers, software, and digital platforms."
-    },
-    {
-        "question": "How well can you understand and relate to others' emotions?",
-        "trait": "empathy",
-        "type": "slider",
-        "tooltip": "Indicates your ability to empathize and connect with others emotionally."
-    },
-    {
-        "question": "Rate your communication and presentation skills:",
-        "trait": "communication",
-        "type": "slider",
-        "tooltip": "Measures your ability to express ideas clearly and effectively."
-    },
-    {
-        "question": "How comfortable are you taking charge and leading others?",
-        "trait": "leadership",
-        "type": "slider",
-        "tooltip": "Assesses your confidence in guiding and motivating teams."
-    },
-    {
-        "question": "Do you prefer working with data and analysis?",
-        "trait": "analytical",
-        "type": "radio",
-        "options": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
-        "tooltip": "Shows your interest in analyzing information and drawing insights."
-    },
-    {
-        "question": "How patient are you when dealing with challenging situations?",
-        "trait": "patience",
-        "type": "slider",
-        "tooltip": "Reflects your ability to remain calm and persistent."
-    },
-    {
-        "question": "Rate your organizational and planning abilities:",
-        "trait": "organization",
-        "type": "slider",
-        "tooltip": "Measures your skill in managing tasks and time efficiently."
-    }
-]
 
 class CareerGuidanceSystem:
     def __init__(self):
@@ -397,16 +324,17 @@ if 'guidance_system' not in st.session_state:
 
 # Initialize session state variables
 if 'current_step' not in st.session_state:
-    st.session_state.current_step = 'landing'
+    st.session_state.current_step = 'info'
 if 'user_info' not in st.session_state:
     st.session_state.user_info = {}
 if 'quiz_scores' not in st.session_state:
     st.session_state.quiz_scores = {}
 
+
 def main():
     # Sidebar with navigation
     st.sidebar.markdown("---")
-    st.sidebar.markdown("## 🎯 AI BASED CAREER RECOMMENDATION SYSTEM")
+    st.sidebar.markdown("## AI BASED CAREER RECOMMENDATION SYSTEM")
     st.sidebar.markdown("### Instructions:")
     st.sidebar.markdown("""
     1. **Fill Personal Info** - Enter your basic details  
@@ -429,8 +357,8 @@ def main():
         st.session_state.quiz_scores = {}
         st.rerun()
     # Main header
-    st.markdown('<h1 class="main-header">🎯 AI BASED CAREER RECOMMENDATION SYSTEM</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; font-size: 1.2rem; color: #666;">Discover your ideal career path with AI-powered recommendations</p>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">WHAT CAREER PATH IS RIGHT FOR ME?</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center; font-size: 1.5rem; color: #000;">Discover your ideal Career with AI-Powered Recommendations</p>', unsafe_allow_html=True)
     # Progress bar
     steps = ['landing', 'info', 'quiz', 'results']
     current_step_index = steps.index(st.session_state.current_step)
@@ -445,62 +373,100 @@ def main():
     elif st.session_state.current_step == 'results':
         show_results()
 
-def show_landing_page():
+def show_user_info_form():
+
     st.markdown("""
-    <div style="text-align:center;">
-        <h2>Welcome to the AI BASED CAREER RECOMMENDATION SYSTEM!</h2>
-        <p style="font-size:1.1rem;">
-            Take a quick quiz and discover your best-fit career paths, personalized just for you.<br>
-            <b>Ready to get started?</b>
-        </p>
+        <div class="instruction-box">
+            <h2>Your Journey Starts Here</h2>
+             <p style="text-align: left; font-size: 1.2rem; color: #000;">
+        Choosing the right career path can feel overwhelming, 
+        but understanding your strengths, interests, and values is the first step toward building a fulfilling future. That’s why we created this free career test, a tool designed to help you identify the best career options 
+        based on your unique profile. This test evaluates your interests, skills, and working style to match you with potential careers across 
+        business, technology, creative, healthcare, education, and analytical domains. When answering, try to select the option that most closely reflects your natural preferences.
+    </p>
+    <p style="text-align: left; font-size: 1.5rem; color: #000;">Career Test Instructions</p>
+
+  <ul style="font-size:1.2rem; color:#000; text-align:left; list-style-type:disc;">
+        <li>20 multiple-choice questions</li>
+        <li>Takes approximately 5-15 minutes</li>
+        <li>Immediate results with career recommendations</li>
+        <li>Custom learning paths based on results</li>
+    </ul>
+            <p style="text-align: left; font-size: 1.2rem; color: #000;">Answer the following skill-based questions and click Get Career Recommendation to calculate your score.<br> Use your score to find recommendations aligning with your skill level and interests.</p>
+
     </div>
+
     """, unsafe_allow_html=True)
-    st.markdown("---")
-    st.markdown("#### ⭐ What users say:")
-    st.markdown('<div class="testimonial">"This tool helped me realize my strengths and choose a career I love!"<br><b>- Priya S.</b></div>', unsafe_allow_html=True)
-    st.markdown('<div class="testimonial">"The recommendations were spot-on and the resources are super helpful."<br><b>- Alex T.</b></div>', unsafe_allow_html=True)
-    st.markdown('<div class="testimonial">"I loved the visualizations and the easy-to-use interface!"<br><b>- Fatima Z.</b></div>', unsafe_allow_html=True)
-    st.markdown("---")
-    if st.button("🚀 Start Career recommendation"):
-        st.session_state.current_step = 'info'
+
+    st.markdown(
+    """
+    <style>
+   div.stButton > button:first-child {
+  background-color: #000000;
+  color: white;
+  padding: 0.5rem 0rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: -150px;
+  margin-left: 12.5rem;
+  margin-right: -150px;
+}
+
+
+    }
+    div.stButton > button:first-child:hover {
+        background-color: #333333;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+    if st.button("Start Career Test"):
+        st.session_state.current_step = 'quiz'
         st.rerun()
 
-def show_user_info_form():
-    st.markdown('<h2 class="sub-header">👤 Personal Information</h2>', unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
-        name = st.text_input("Full Name", placeholder="Enter your full name")
-        age = st.number_input("Age", min_value=15, max_value=65, value=22)
-    with col2:
-        education = st.selectbox("Education Level", 
-                               ["High School", "Bachelor's Degree", "Master's Degree", "PhD", "Other"])
-        stream = st.selectbox("Field of Study", 
-                            ["Computer Science", "Engineering", "Business", "Arts", "Science", 
-                             "Medicine", "Law", "Education", "Other"])
-    if st.button("Continue to career_recommendation ➡️", type="primary"):
-        if name:
-            st.session_state.user_info = {
-                'name': name,
-                'age': age,
-                'education': education,
-                'stream': stream
-            }
-            st.session_state.current_step = 'quiz'
-            st.success("Information saved! Let's start the guide.")
-            st.rerun()
-        else:
-            st.error("Please enter your name to continue.")
+# 🔹 CSS injection to hide the placeholder option
+st.markdown(
+    """
+    <style>
+    div[data-testid="stRadio"] label:first-child {
+        display: none !important;
+    }
+    /* Make selected radio option text black */
+    div[data-testid="stRadio"] label span {
+        color: black !important;
+    }
+    /* Optional: make unselected options gray for contrast */
+    div[data-testid="stRadio"] label span {
+        color: #333 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 def show_quiz():
-    st.markdown('<h2 class="sub-header">📋 Career Recommendation </h2>', unsafe_allow_html=True)
-    st.markdown("Rate each statement based on how well it describes you (1 = Strongly Disagree, 5 = Strongly Agree)")
+    st.markdown('<h2 class="sub-header">Career Test Assessment</h2>', unsafe_allow_html=True)
     scores = {}
+
     with st.form("career_recommendation"):
         for i, q in enumerate(QUIZ_QUESTIONS):
-            st.markdown(f"**Question {i+1}: {q['question']}** <span title='{q.get('tooltip','')}' style='color:#888;cursor:help;'>ℹ️</span>", unsafe_allow_html=True)
+            # Question text styled
+            st.markdown(
+                f"""
+                <div class='question-text' style='margin-bottom:10px; font-size:22px; font-weight:bold;'>
+                    Question {i+1}: {q['question']}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
             if q['type'] == 'slider':
                 score = st.slider(
-                    f"Q{i+1}",
+                    "",
                     min_value=1,
                     max_value=5,
                     value=3,
@@ -508,17 +474,27 @@ def show_quiz():
                     label_visibility="collapsed"
                 )
             else:  # radio
-                options = q['options']
+                # Add hidden placeholder option
+                options = ["Select an option..."] + q['options']
                 selection = st.radio(
-                    f"Q{i+1}",
+                    "",
                     options,
                     key=f"q_{i}",
-                    label_visibility="collapsed"
+                    label_visibility="collapsed",
+                    index=0  # defaults to hidden placeholder
                 )
-                score = options.index(selection) + 1
+
+                # Only score if user picked a real option
+                if selection != "Select an option...":
+                    score = q['options'].index(selection) + 1
+                else:
+                    score = None
+
             scores[q['trait']] = score
             st.markdown("---")
-        submitted = st.form_submit_button("Get My Career Recommendations 🎯", type="primary")
+
+        submitted = st.form_submit_button("Get My Career Recommendations", type="primary")
+
         if submitted:
             st.session_state.quiz_scores = scores
             st.session_state.current_step = 'results'
@@ -526,8 +502,9 @@ def show_quiz():
             st.balloons()
             st.rerun()
 
+
 def show_results():
-    st.markdown('<h2 class="sub-header">🧠 Your Career Recommendations</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="sub-header">Your Career Recommendations</h2>', unsafe_allow_html=True)
     # Calculate career matches
     career_scores = st.session_state.guidance_system.calculate_career_match(st.session_state.quiz_scores)
     sorted_careers = sorted(career_scores.items(), key=lambda x: x[1], reverse=True)
@@ -549,11 +526,11 @@ def show_results():
     col1, col2, col3 = st.columns([2, 1, 1])
     with col1:
         badge = "badge-green" if confidence > 80 else "badge-orange" if confidence > 60 else "badge-red"
-        st.markdown(f"### 🎯 **{top_career}** <span class='badge {badge}'>{confidence:.1f}% match</span>", unsafe_allow_html=True)
+        st.markdown(f"### **{top_career}** <span class='badge {badge}'>{confidence:.1f}% match</span>", unsafe_allow_html=True)
     with col2:
         st.metric("Personality Type", personality_tag)
     with col3:
-        if st.button("💾 Save Results"):
+        if st.button("Save Results"):
             st.session_state.guidance_system.save_results(
                 st.session_state.user_info, 
                 career_result, 
@@ -561,29 +538,19 @@ def show_results():
             )
             st.success("Results saved!")
         csv = pd.DataFrame([st.session_state.user_info | st.session_state.quiz_scores | career_result]).to_csv(index=False).encode('utf-8')
-        st.download_button("⬇️ Download Results", csv, "career_results.csv", "text/csv")
     # Career details
-    show_career_details(top_career, "🏆 Top Recommendation")
-    st.markdown("### 🔄 Alternative Career Paths")
+    show_career_details(top_career, " Top Recommendation")
+    st.markdown("### Alternative Career Paths")
     col1, col2 = st.columns(2)
     with col1:
         if len(alternatives) > 0:
-            show_career_details(alternatives[0], "🥈 Second Choice", compact=True)
+            show_career_details(alternatives[0], " Second Choice", compact=True)
     with col2:
         if len(alternatives) > 1:
-            show_career_details(alternatives[1], "🥉 Third Choice", compact=True)
+            show_career_details(alternatives[1], " Third Choice", compact=True)
     # Trait analysis
     show_trait_analysis(top_career)
-    # Action buttons
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("🔄 Retake Quiz", type="secondary"):
-            st.session_state.current_step = 'quiz'
-            st.rerun()
-    with col2:
-        if st.button("👤 Update Info", type="secondary"):
-            st.session_state.current_step = 'info'
-            st.rerun()
+  
 
 def show_career_details(career_name, title, compact=False):
     career_info = CAREER_DATABASE[career_name]
@@ -602,8 +569,21 @@ def show_career_details(career_name, title, compact=False):
             st.markdown(f"{career_info['description'][:100]}...")
             st.markdown(f"**Salary:** {career_info['salary_range']}")
 
+def show_career_roadmap(career_name):
+    career_info = CAREER_DATABASE.get(career_name, None)
+    if career_info and "roadmap" in career_info:
+        roadmap = career_info["roadmap"]
+        with st.expander(f"📘 Education & Learning Roadmap for {career_name}", expanded=False):
+            st.write("**Required High School Subjects:**", ", ".join(roadmap["high_school_subjects"]))
+            st.write("**Suggested College Majors:**", ", ".join(roadmap["college_majors"]))
+            st.write("**Certification Options:**", ", ".join(roadmap["certifications"]))
+            st.write("**Online Learning Platforms:**", ", ".join(roadmap["online_platforms"]))
+            st.write("**Internships/Project Ideas:**", ", ".join(roadmap["internships_projects"]))
+
+
+
 def show_trait_analysis(top_career=None):
-    st.markdown("### 📊 Your Trait Analysis")
+    st.markdown("###  Your Trait Analysis")
     traits = list(st.session_state.quiz_scores.keys())
     scores = list(st.session_state.quiz_scores.values())
     # Radar chart using Plotly

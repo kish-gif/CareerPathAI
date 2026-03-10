@@ -1,0 +1,155 @@
+# Career database with comprehensive information
+CAREER_DATABASE = {
+    "Software Engineer": {
+        "description": "Software engineers design, build, and maintain applications, systems, and platforms that power businesses and everyday life. They work with programming languages, frameworks, and cloud technologies to solve problems, improve efficiency, and create user-friendly solutions. In the Philippines, software engineers are in demand across industries such as fintech, e-commerce, healthcare, and outsourcing, making this one of the most versatile and high-growth careers.",
+        "job_roles": ["Full Stack Developer", "Backend Developer", "Mobile App Developer", "DevOps Engineer"],
+        "salary_range": "₱400,000 - ₱1,200,000 per year",
+        "tools": ["Python", "JavaScript", "Git", "Docker", "AWS", "React"],
+        "required_traits": {"logical_thinking": 0.8, "tech_affinity": 0.9, "math": 0.7, "creativity": 0.6},
+        "learning_resources": [
+            "IBM SkillsBuild - Software Development",
+            "Coursera - Programming Fundamentals",
+            "FreeCodeCamp - Web Development"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["Mathematics", "Computer Science", "Physics"],
+            "college_majors": ["Computer Science", "Software Engineering", "Information Technology"],
+            "certifications": ["AWS Certified Developer", "Microsoft Azure Fundamentals", "Google Associate Cloud Engineer"],
+            "online_platforms": ["Coursera", "Udemy", "freeCodeCamp"],
+            "internships_projects": ["Contribute to open-source projects", "Build a portfolio website", "Join hackathons"]
+        }
+    },
+    "Data Scientist": {
+        "description": "Data scientists collect, analyze, and interpret large datasets to uncover insights that guide business decisions. They use statistical methods, machine learning, and visualization tools to solve problems in finance, healthcare, marketing, and government. In the Philippines, data science is a growing field as companies embrace digital transformation and analytics-driven strategies, creating strong demand for professionals who can turn raw data into actionable intelligence.",
+        "job_roles": ["ML Engineer", "Data Analyst", "Business Intelligence Analyst", "Research Scientist"],
+        "salary_range": "₱500,000 - ₱1,300,000 per year",
+        "tools": ["Python", "R", "SQL", "Tableau", "TensorFlow", "Jupyter"],
+        "required_traits": {"logical_thinking": 0.9, "math": 0.9, "tech_affinity": 0.8, "analytical": 0.8},
+        "learning_resources": [
+            "IBM Data Science Professional Certificate",
+            "Coursera - Data Science Specialization",
+            "Kaggle Learn - Data Science"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["Mathematics", "Statistics", "Computer Science"],
+            "college_majors": ["Data Science", "Statistics", "Computer Science", "Applied Mathematics"],
+            "certifications": ["Google Data Analytics Certificate", "Microsoft Certified Data Scientist", "TensorFlow Developer Certificate"],
+            "online_platforms": ["Coursera", "edX", "Kaggle"],
+            "internships_projects": ["Analyze datasets on Kaggle", "Build predictive models", "Work on business analytics projects"]
+        }
+    },
+    "UX/UI Designer": {
+        "description": "UX/UI designers create digital experiences that are both functional and visually appealing. They focus on user research, wireframing, prototyping, and design systems to ensure products are intuitive and accessible. In the Philippines, UX/UI designers are highly sought after in tech startups, creative agencies, and multinational companies, as businesses increasingly recognize the importance of user-centered design in driving customer satisfaction and loyalty.",
+        "job_roles": ["Product Designer", "Visual Designer", "Interaction Designer", "Design Researcher"],
+        "salary_range": "₱350,000 - ₱900,000 per year",
+        "tools": ["Figma", "Adobe Creative Suite", "Sketch", "InVision", "Principle"],
+        "required_traits": {"creativity": 0.9, "empathy": 0.8, "communication": 0.7, "tech_affinity": 0.6},
+        "learning_resources": [
+            "Google UX Design Certificate",
+            "Coursera - UI/UX Design Specialization",
+            "Adobe Design University"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["Art", "Computer Science", "English"],
+            "college_majors": ["Graphic Design", "Human-Computer Interaction", "Multimedia Arts"],
+            "certifications": ["Google UX Design Certificate", "Adobe Certified Expert"],
+            "online_platforms": ["Coursera", "Interaction Design Foundation", "Udemy"],
+            "internships_projects": ["Design mockups for apps", "Freelance UI projects", "Join design competitions"]
+        }
+    },
+    "Marketing Manager": {
+        "description": "Marketing managers develop and implement strategies to promote products and services. They oversee campaigns, analyze consumer behavior, and manage brand positioning. In the Philippines, marketing managers play a crucial role in industries like retail, FMCG, real estate, and digital marketing agencies, where competition is high and effective communication with customers is essential for growth.",
+        "job_roles": ["Digital Marketing Manager", "Brand Manager", "Content Marketing Manager", "Social Media Manager"],
+        "salary_range": "₱400,000 - ₱1,000,000 per year",
+        "tools": ["Google Analytics", "HubSpot", "Mailchimp", "Canva", "Hootsuite"],
+        "required_traits": {"creativity": 0.8, "communication": 0.9, "leadership": 0.7, "empathy": 0.6},
+        "learning_resources": [
+            "Google Digital Marketing Certificate",
+            "HubSpot Academy",
+            "Coursera - Digital Marketing Specialization"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["English", "Economics", "Business Studies"],
+            "college_majors": ["Marketing", "Business Administration", "Communications"],
+            "certifications": ["Google Ads Certification", "HubSpot Inbound Marketing", "Facebook Blueprint"],
+            "online_platforms": ["Coursera", "HubSpot Academy", "LinkedIn Learning"],
+            "internships_projects": ["Manage social media campaigns", "Assist in brand strategy", "Create marketing content"]
+        }
+    },
+     "Business Analyst": {
+        "description": "Business analysts evaluate processes, systems, and data to recommend improvements that enhance efficiency and profitability. They act as a bridge between technical teams and business stakeholders, ensuring that business needs are translated into clear technical requirements. In the Philippines, business analysts are vital in IT outsourcing, banking, and corporate strategy, where they help organizations adapt to digital transformation and streamline operations.",
+        "job_roles": ["Systems Analyst", "Process Improvement Analyst", "Data Analyst", "Project Coordinator"],
+        "salary_range": "₱450,000 - ₱1,000,000 per year",
+        "tools": ["Excel", "SQL", "Tableau", "JIRA", "Visio", "Power BI"],
+        "required_traits": {"logical_thinking": 0.8, "communication": 0.8, "analytical": 0.8, "leadership": 0.6},
+        "learning_resources": [
+            "IBM Business Analysis Certificate",
+            "Coursera - Business Analytics",
+            "IIBA - Business Analysis Training"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["Mathematics", "Economics", "Computer Science"],
+            "college_majors": ["Business Administration", "Information Systems", "Economics"],
+            "certifications": ["IIBA Entry Certificate in Business Analysis", "Certified Business Analysis Professional (CBAP)"],
+            "online_platforms": ["Coursera", "edX", "LinkedIn Learning"],
+            "internships_projects": ["Assist in process mapping", "Work on data visualization projects", "Support project management teams"]
+        }
+    },
+    "Project Manager": {
+        "description": "Project managers oversee the planning, execution, and delivery of projects. They coordinate teams, manage resources, and ensure deadlines are met while balancing scope, budget, and quality. In the Philippines, project managers are essential in IT, construction, manufacturing, and corporate operations, where they play a key role in ensuring projects align with organizational goals and client expectations.",
+        "job_roles": ["Scrum Master", "Program Manager", "Operations Manager", "Team Lead"],
+        "salary_range": "₱500,000 - ₱1,200,000 per year",
+        "tools": ["Microsoft Project", "JIRA", "Trello", "Slack", "Gantt Charts"],
+        "required_traits": {"leadership": 0.9, "communication": 0.8, "organization": 0.8, "problem_solving": 0.7},
+        "learning_resources": [
+            "PMI Project Management Certificate",
+            "Google Project Management Certificate",
+            "Coursera - Project Management Principles"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["Mathematics", "English", "Business Studies"],
+            "college_majors": ["Business Administration", "Management", "Industrial Engineering"],
+            "certifications": ["PMP Certification", "Scrum Master Certification", "PRINCE2"],
+            "online_platforms": ["Coursera", "edX", "PMI Learning"],
+            "internships_projects": ["Assist in project planning", "Coordinate small projects", "Join student organizations"]
+        }
+    },
+    "Counselor/Therapist": {
+        "description": "Counselors and therapists provide emotional and psychological support to individuals dealing with personal, academic, or professional challenges. They use therapeutic techniques, assessments, and counseling strategies to help clients improve mental health and overall well-being. In the Philippines, counselors and therapists are needed in schools, hospitals, private clinics, and community organizations, where mental health awareness is steadily growing.",
+        "job_roles": ["Clinical Therapist", "School Counselor", "Career Counselor", "Family Therapist"],
+        "salary_range": "₱300,000 - ₱700,000 per year",
+        "tools": ["Assessment Tools", "Therapy Software", "Documentation Systems"],
+        "required_traits": {"empathy": 0.9, "communication": 0.9, "patience": 0.8, "listening": 0.8},
+        "learning_resources": [
+            "Psychology Today - Therapy Training",
+            "Coursera - Psychology Courses",
+            "American Counseling Association Resources"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["Psychology", "Biology", "English"],
+            "college_majors": ["Psychology", "Counseling", "Social Work"],
+            "certifications": ["Licensed Professional Counselor (LPC)", "Registered Guidance Counselor (Philippines)"],
+            "online_platforms": ["Coursera", "edX", "APA Resources"],
+            "internships_projects": ["Volunteer at counseling centers", "Assist in school guidance offices", "Join peer support groups"]
+        }
+    },
+    "Sales Representative": {
+        "description": "Sales representatives build relationships with clients and sell products or services to meet revenue targets. They identify customer needs, present solutions, and negotiate deals while maintaining long-term partnerships. In the Philippines, sales representatives are crucial in industries such as real estate, pharmaceuticals, technology, and consumer goods, where strong communication and persuasion skills drive business growth.",
+        "job_roles": ["Account Manager", "Business Development Rep", "Sales Engineer", "Territory Manager"],
+        "salary_range": "₱350,000 - ₱900,000 per year",
+        "tools": ["CRM Software", "Salesforce", "LinkedIn Sales Navigator", "Email Marketing Tools"],
+        "required_traits": {"communication": 0.9, "persuasion": 0.8, "resilience": 0.7, "empathy": 0.6},
+        "learning_resources": [
+            "Salesforce Trailhead",
+            "HubSpot Sales Training",
+            "LinkedIn Learning - Sales Skills"
+        ],
+        "roadmap": {
+            "high_school_subjects": ["English", "Economics", "Business Studies"],
+            "college_majors": ["Business Administration", "Marketing", "Communications"],
+            "certifications": ["Salesforce Certified Sales Representative", "HubSpot Sales Certification"],
+            "online_platforms": ["LinkedIn Learning", "HubSpot Academy", "Coursera"],
+            "internships_projects": ["Assist in client outreach", "Work in retail or customer service", "Support business development teams"]
+        }
+    }
+}
