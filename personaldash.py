@@ -305,3 +305,4 @@ if os.path.exists("results.csv"):
             file_name="career_results.pdf",
             mime="application/pdf"
         )
+
