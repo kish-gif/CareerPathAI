@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: CareerPathAI
+    env: docker
+    plan: free
+    repo: https://github.com/kish-gif/CareerPathAI
+    branch: main
