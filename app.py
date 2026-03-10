@@ -29,7 +29,7 @@ CAREER_DATABASE, QUIZ_QUESTIONS = load_data()
 
 # Set page configuration
 st.set_page_config(
-    page_title="AI Career Guidance System",
+    page_title="Career Path Finder",
     page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
