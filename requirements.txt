@@ -6,3 +6,6 @@ matplotlib
 plotly
 scikit-learn
 pillow==10.2.0
+pydrive2
+google-auth
+google-auth-oauthlib
