@@ -315,7 +315,7 @@ class CareerGuidanceSystem:
         if os.path.exists('C:/Users/Krishna/CareerPathAI/results.csv'):
             results_df.to_csv('C:/Users/Krishna/CareerPathAI/results.csv', mode='a', header=False, index=False)
         else:
-            results_df.to_csv('results.csv', index=False)
+            results_df.to_csv('C:/Users/Krishna/CareerPathAI/results.csv', index=False)
 
 # Initialize the system
 if 'guidance_system' not in st.session_state:
