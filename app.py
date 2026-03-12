@@ -312,8 +312,8 @@ class CareerGuidanceSystem:
         # Create or append to results file
         results_df = pd.DataFrame([result_data])
         
-        if os.path.exists('results.csv'):
-            results_df.to_csv('results.csv', mode='a', header=False, index=False)
+        if os.path.exists('C:/Users/Krishna/CareerPathAI/results.csv'):
+            results_df.to_csv('C:/Users/Krishna/CareerPathAI/results.csv', mode='a', header=False, index=False)
         else:
             results_df.to_csv('results.csv', index=False)
 
