@@ -278,7 +278,7 @@ def show_user_info_form():
     </p>
     <p style="text-align: left; font-size: 1.5rem; color: #000;">Career Test Instructions</p>
 
-  <ul style="font-size:1.2rem; color:#000; text-align:left; list-style-type:disc;">
+  <ul style="font-size:1.5rem; color:#000; text-align:left; list-style-type:disc;">
         <li>20 multiple-choice questions</li>
         <li>Takes approximately 5-15 minutes</li>
         <li>Immediate results with career recommendations</li>
@@ -297,6 +297,7 @@ def show_user_info_form():
       background-color: #000000;
       color: white;
       padding: 0.5rem 0rem;
+      font-size: 1.2rem;
       border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
