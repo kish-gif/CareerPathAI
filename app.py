@@ -278,11 +278,11 @@ def show_user_info_form():
     </p>
     <p style="text-align: left; font-size: 1.5rem; color: #000;">Career Test Instructions</p>
 
-  <ul style="font-size:1.5rem; color:#000; text-align:left; list-style-type:disc;">
-        <li>20 multiple-choice questions</li>
-        <li>Takes approximately 5-15 minutes</li>
-        <li>Immediate results with career recommendations</li>
-        <li>Custom learning paths based on results</li>
+    <ul style="font-size:40px; color:#000; text-align:left; list-style-type:disc;">        
+        <li li style="font-size:19px;">20 multiple-choice questions</li>
+        <li li style="font-size:19px;">Takes approximately 5-15 minutes</li>
+        <li li style="font-size:19px;">Immediate results with career recommendations</li>
+        <li li style="font-size:19px;">Custom learning paths based on results</li>
     </ul>
             <p style="text-align: left; font-size: 1.2rem; color: #000;">Answer the following skill-based questions and click Get Career Recommendation to calculate your score.<br> Use your score to find recommendations aligning with your skill level and interests.</p>
 
@@ -296,10 +296,8 @@ def show_user_info_form():
    div.stButton > button:first-child {
       background-color: #000000;
       color: white;
-      padding: 0.5rem 0rem;
       font-size: 1.2rem;
       border-radius: 8px;
-      font-weight: 600;
       cursor: pointer;
       margin-top: -150px;
       margin-left: 12.5rem;
