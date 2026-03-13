@@ -29,7 +29,7 @@ CAREER_DATABASE, QUIZ_QUESTIONS = load_data()
 
 # Set page configuration
 st.set_page_config(
-    page_title="Career Path AI - Your Personalized Career Guide",
+    page_title="Career Path Finder",
     page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -372,21 +372,22 @@ def show_results():
     st.markdown('<h2 class="sub-header">Your Career Recommendations</h2>', unsafe_allow_html=True)
 
     # ✅ Fixed data from your record
-    top_career = "Project Manager"
-    confidence = 89.99999999999999
-    personality_tag = "Versatile Professional"
+    top_career = "Business Analyst"
+    confidence = 89.88888888888889
+    personality_tag = "People Person"
     trait_scores = {
         "Organization": 3,
-        "Patience": 5,
+        "Patience": 3,
         "Communication": 4,
         "Logical Thinking": 3,
-        "Math": 3,
+        "Math": 5,
         "Tech Affinity": 3,
-        "Analytical": 1,
-        "Creativity": 2,
-        "Empathy": 4,
-        "Leadership": 4
+        "Analytical": 4,
+        "Creativity": 3,
+        "Empathy": 5,
+        "Leadership": 2
     }
+ 
 
     # Header layout
     col1, col2, col3 = st.columns([2, 1, 1])
@@ -394,7 +395,7 @@ def show_results():
         badge = "badge-green" if confidence > 80 else "badge-orange" if confidence > 60 else "badge-red"
         st.markdown(f"### **{top_career}** <span class='badge {badge}'>{confidence:.1f}% match</span>", unsafe_allow_html=True)
     with col2:
-        st.metric("Personality Type", personality_tag)
+        st.metric("Personality Type", " People Person")
     with col3:
         if st.button("Save Results"):
             st.success("Results saved!")
@@ -414,22 +415,22 @@ def show_results():
     show_trait_analysis(top_career, trait_scores)
 
 
-def show_trait_analysis(top_career="Project Manager", trait_scores=None):
+def show_trait_analysis(top_career="Business Analyst", trait_scores=None):
     st.markdown("### Your Trait Analysis")
 
     # ✅ Trait scores from your record if none passed
     if trait_scores is None:
         trait_scores = {
             "Organization": 3,
-            "Patience": 5,
+            "Patience": 3,
             "Communication": 4,
             "Logical Thinking": 3,
-            "Math": 3,
+            "Math": 5,
             "Tech Affinity": 3,
-            "Analytical": 1,
-            "Creativity": 2,
-            "Empathy": 4,
-            "Leadership": 4
+            "Analytical": 4,
+            "Creativity": 3,
+            "Empathy": 5,
+            "Leadership": 2
         }
 
     traits = list(trait_scores.keys())
