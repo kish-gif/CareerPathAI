@@ -371,7 +371,7 @@ def show_results():
     st.markdown('<h2 class="sub-header">Your Career Recommendations</h2>', unsafe_allow_html=True)
 
     # ✅ Fixed data from your record
-    top_career = "Business Analyst"
+    top_career = "UX/UI Designer"
     confidence = 89.88888888888889
     personality_tag = "People Person"
     trait_scores = {
@@ -412,24 +412,25 @@ def show_results():
 
     # ✅ Call trait analysis here
     show_trait_analysis(top_career, trait_scores)
+2026-03-14 03:07:21,,,,,UX/UI Designer,89.99999999999999,Analytical Mind,3,1,4,5,3,2,1,4,4,1
 
 
-def show_trait_analysis(top_career="Business Analyst", trait_scores=None):
+def show_trait_analysis(top_career="UX/UI Designer", trait_scores=None):
     st.markdown("### Your Trait Analysis")
 
     # ✅ Trait scores from your record if none passed
     if trait_scores is None:
         trait_scores = {
             "Organization": 3,
-            "Patience": 3,
+            "Patience": 1,
             "Communication": 4,
-            "Logical Thinking": 3,
-            "Math": 5,
-            "Tech Affinity": 3,
-            "Analytical": 4,
-            "Creativity": 3,
-            "Empathy": 5,
-            "Leadership": 2
+            "Logical Thinking": 5,
+            "Math": 3,
+            "Tech Affinity": 2,
+            "Analytical": 1,
+            "Creativity": 4,
+            "Empathy": 4,
+            "Leadership": 1
         }
 
     traits = list(trait_scores.keys())
