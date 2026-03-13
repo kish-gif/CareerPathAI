@@ -1,6 +1,3 @@
-# Streamlit local config
-.streamlit/
-
 # Secrets
 client_secrets.json
 credentials.json
