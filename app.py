@@ -394,7 +394,7 @@ def show_results():
         badge = "badge-green" if confidence > 80 else "badge-orange" if confidence > 60 else "badge-red"
         st.markdown(f"### **{top_career}** <span class='badge {badge}'>{confidence:.1f}% match</span>", unsafe_allow_html=True)
     with col2:
-        st.metric("Personality Type", " People Person")
+        st.metric("Personality Type", " Analytical Mind")
     with col3:
         if st.button("Save Results"):
             st.success("Results saved!")
