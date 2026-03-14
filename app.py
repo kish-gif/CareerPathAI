@@ -412,7 +412,6 @@ def show_results():
 
     # ✅ Call trait analysis here
     show_trait_analysis(top_career, trait_scores)
-2026-03-14 03:07:21,,,,,UX/UI Designer,89.99999999999999,Analytical Mind,3,1,4,5,3,2,1,4,4,1
 
 
 def show_trait_analysis(top_career="UX/UI Designer", trait_scores=None):
